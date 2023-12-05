@@ -4,8 +4,8 @@ public class ResourceNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 	
-	public ResourceNotFoundException(String msg) {
-		super(msg);
+	public ResourceNotFoundException(Object id) {
+		super("Não foi encontrado o id informado: " + id);
 	}
 
 }
