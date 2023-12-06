@@ -2,8 +2,11 @@ package com.fernandes.twitterPostMysql.resource.exception;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class StanderdError {
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyy'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant timestemp;
 	private Integer status;
 	private String error;
