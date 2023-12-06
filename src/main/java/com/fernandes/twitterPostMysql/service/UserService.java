@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fernandes.twitterPostMysql.entities.User;
 import com.fernandes.twitterPostMysql.repository.UserRepository;
+import com.fernandes.twitterPostMysql.service.exception.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,10 +22,10 @@ public class UserService {
 	}
 	
 	// teste caso ele pode não achar o usuario informado
-	public Optional<User> findById(Integer id) {
+	public User findById(Integer id) {
 		Optional<User> user = userRepository.findById(id);
 		
-		return user;
+		return user.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 }
