@@ -21,11 +21,14 @@ public class UserService {
 		return users;
 	}
 	
-	// teste caso ele pode não achar o usuario informado
 	public User findById(Integer id) {
 		Optional<User> user = userRepository.findById(id);
 		
 		return user.orElseThrow(() -> new ResourceNotFoundException(id));
+	}
+	
+	public User create(User obj) {
+		return userRepository.save(obj);
 	}
 
 }
