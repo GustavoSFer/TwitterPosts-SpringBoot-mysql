@@ -46,4 +46,10 @@ public class UserService {
 		user.setName(obj.getName());
 		user.setEmail(obj.getEmail());		
 	}
+	
+	public User delete(Integer id) {
+		User user = findById(id);
+		userRepository.delete(user);
+		return user;
+	}
 }
