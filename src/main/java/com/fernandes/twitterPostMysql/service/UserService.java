@@ -35,5 +35,15 @@ public class UserService {
 		}
 		return userRepository.save(obj);
 	}
+	
+	public User update(Integer id, User obj) {
+		User user = findById(id);
+		updateUser(user, obj);
+		return userRepository.save(user);
+	}
 
+	public void updateUser(User user, User obj) {
+		user.setName(obj.getName());
+		user.setEmail(obj.getEmail());		
+	}
 }
