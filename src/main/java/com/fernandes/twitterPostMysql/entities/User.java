@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +24,8 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	
-	@OneToMany
+	@JsonIgnore
+	@OneToMany(mappedBy = "user") // ele esta mapeado por (na classe post como colocamos o nome do atributo)
 	private List<Post> pots = new ArrayList<>();
 	
 	public User() {}
@@ -57,7 +60,11 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
+	public List<Post> getPots() {
+		return pots;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
