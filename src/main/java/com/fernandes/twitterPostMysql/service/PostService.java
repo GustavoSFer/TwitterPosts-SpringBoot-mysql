@@ -32,5 +32,18 @@ public class PostService {
 		Post post = postRepository.save(obj);
 		return post;
 	}
+	
+	public Post update(Post obj, Integer id) {
+		Post post = findById(id);
+		updatePost(obj, post);
+		 postRepository.save(post);
+		return post;
+	}
+	
+	private void updatePost(Post obj, Post post) {
+		post.setTexto(obj.getTexto());
+		post.setTitulo(obj.getTitulo());
+		post.setUser(obj.getUser());;
+	}
 
 }
