@@ -27,5 +27,10 @@ public class PostService {
 		
 		return post.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	public Post create(Post obj) {
+		Post post = postRepository.save(obj);
+		return post;
+	}
 
 }
