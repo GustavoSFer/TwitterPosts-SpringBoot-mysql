@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ import com.fernandes.twitterPostMysql.entities.Post;
 import com.fernandes.twitterPostMysql.service.PostService;
 
 @RestController
-@RequestMapping(value = "/orders")
+@RequestMapping(value = "/posts")
 public class PostResource {
 	
 	@Autowired
@@ -51,6 +52,13 @@ public class PostResource {
 		Post postUpdate = postService.update(obj, id);
 		
 		return ResponseEntity.ok().body(postUpdate);
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Post> delete(@PathVariable Integer id) {
+		postService.delete(id);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 }

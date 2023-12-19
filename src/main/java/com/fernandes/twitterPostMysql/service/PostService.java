@@ -45,5 +45,10 @@ public class PostService {
 		post.setTitulo(obj.getTitulo());
 		post.setUser(obj.getUser());;
 	}
+	
+	public void delete(Integer id) {
+		Post post = findById(id);
+		postRepository.delete(post);
+	}
 
 }
