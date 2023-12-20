@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fernandes.twitterPostMysql.service.exception.DatabaseException;
+import com.fernandes.twitterPostMysql.service.exception.NullPointerBadRequestException;
 import com.fernandes.twitterPostMysql.service.exception.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +26,15 @@ public class ResourceExceptionHandler {
 
 	@ExceptionHandler(DatabaseException.class)
 	public ResponseEntity<StanderdError> userNotCreate(DatabaseException e, HttpServletRequest request) {
-		String error = "Nome ou e-mail vazio!";
+		String error = e.getMessage();
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		StanderdError err = new StanderdError(Instant.now(), status.value(), error, "Não foi criado", request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
+	@ExceptionHandler(NullPointerBadRequestException.class)
+	public ResponseEntity<StanderdError> badRequestException(NullPointerBadRequestException e, HttpServletRequest request) {
+		String error = e.getMessage();
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StanderdError err = new StanderdError(Instant.now(), status.value(), error, "Não foi criado", request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
